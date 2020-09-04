@@ -1,0 +1,15 @@
+---
+- name: download & install openshift clients
+  unarchive:
+    remote_src: yes
+    src: "{{ client.download_url }}"
+    dest: "{{ client.install_dir }}"
+    owner: "{{ client.owner }}"
+    group: "{{ client.group }}"
+    mode: "{{ client.mode }}"
+    creates: "{{ client.install_dir }}/{{ client.name }}"
+  become: "{{ client.become }}"
+  loop: "{{ openshift_clients }}"
+  loop_control:
+    loop_var: client
+    label: "{{ client.name }}"

@@ -1,0 +1,59 @@
+---
+openshift_clients_version: 4.4
+openshift_clients_arch: linux
+openshift_clients_install_dir: /usr/local/bin
+openshift_clients_owner: root
+openshift_clients_group: root
+openshift_clients_mode: '0755'
+openshift_clients_download_root: https://mirror.openshift.com/pub/openshift-v4/clients
+openshift_clients_become: yes
+
+oc_version: "{{ openshift_clients_version }}"
+oc_arch: "{{ openshift_clients_arch }}"
+oc_install_dir: "{{ openshift_clients_install_dir }}"
+oc_owner: "{{ openshift_clients_owner }}"
+oc_group: "{{ openshift_clients_group }}"
+oc_mode: "{{ openshift_clients_mode }}"
+oc_become:  "{{ openshift_clients_become }}"
+oc_download_url: "{{ openshift_clients_download_root }}/oc/{{ oc_version }}/{{ oc_arch }}/oc.tar.gz"
+
+odo_version: latest
+odo_arch: linux-amd64
+odo_install_dir: "{{ openshift_clients_install_dir }}"
+odo_owner: "{{ openshift_clients_owner }}"
+odo_group: "{{ openshift_clients_group }}"
+odo_mode: "{{ openshift_clients_mode }}"
+odo_become:  "{{ openshift_clients_become }}"
+odo_download_url: "{{ openshift_clients_download_root }}/odo/{{ odo_version }}/odo-{{ odo_arch }}.tar.gz"
+
+openshift_install_version: "stable-{{ openshift_clients_version }}"
+openshift_install_arch: "{{ openshift_clients_arch }}"
+openshift_install_install_dir: "{{ openshift_clients_install_dir }}"
+openshift_install_owner: "{{ openshift_clients_owner }}"
+openshift_install_group: "{{ openshift_clients_group }}"
+openshift_install_mode: "{{ openshift_clients_mode }}"
+openshift_install_become:  "{{ openshift_clients_become }}"
+openshift_install_download_url: "{{ openshift_clients_download_root }}/ocp/{{ openshift_install_version }}/openshift-install-{{ openshift_install_arch }}.tar.gz"
+
+openshift_clients:
+  - name: oc
+    install_dir: "{{ oc_install_dir }}"
+    owner:  "{{ oc_owner }}"
+    group:  "{{ oc_group }}"
+    mode: "{{ oc_mode }}"
+    download_url: "{{ oc_download_url }}"
+    become:  "{{ oc_become }}"
+  - name: odo
+    install_dir: "{{ odo_install_dir }}"
+    owner:  "{{ odo_owner }}"
+    group:  "{{ odo_group }}"
+    mode: "{{ odo_mode }}"
+    download_url: "{{ odo_download_url }}"
+    become:  "{{ odo_become }}"
+  - name: openshift-install
+    install_dir: "{{ openshift_install_install_dir }}"
+    owner:  "{{ openshift_install_owner }}"
+    group:  "{{ openshift_install_group }}"
+    mode: "{{ openshift_install_mode }}"
+    download_url: "{{ openshift_install_download_url }}"
+    become:  "{{ openshift_install_become }}"
