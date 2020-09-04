@@ -47,6 +47,8 @@ galaxy_info:
     # NOTE: A tag is limited to a single word comprised of alphanumeric characters.
     #       Maximum 20 tags per role.
 
-dependencies: 
-  - name: stocky37.openshift-clients
-    tags: [ never ]
+dependencies: []
+collections:
+  - ansible.builtin
+  - community.general
+  - community.libvirt
