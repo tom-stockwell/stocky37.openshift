@@ -45,6 +45,7 @@ tags: []
 dependencies:
   community.general:
   community.libvirt:
+  community.okd:
 
 # The URL of the originating SCM repository
 repository: http://example.com/repository

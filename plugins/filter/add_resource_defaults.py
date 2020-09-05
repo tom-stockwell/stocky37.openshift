@@ -1,7 +1,3 @@
-from __future__ import (absolute_import, division, print_function)
-__metaclass__ = type
-
-
 def add_resource_defaults(files, orig):
     for file in files:
         resource = {
