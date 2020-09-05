@@ -1,0 +1,14 @@
+---
+- name: (debug) resource
+  debug:
+    var: resource
+    verbosity: 1
+
+- name: Apply/remove k8s resource
+  k8s:
+    state: "{{ resource.state | default('present') }}"
+    definition: "{{ lookup('template', resource.src, template_vars=template_vars) }}"
+  loop: "{{ resource.vars | default([{}]) }}"
+  loop_control:
+    label: "{{ resource.src | dirname | basename }}/{{ resource.src | basename }}"
+    loop_var: template_vars

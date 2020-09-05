@@ -1,0 +1,39 @@
+---
+- name: (debug) Show entry being processed
+  debug:
+    var: entry
+    verbosity: 2
+
+- name: Check if file or directory
+  stat:
+    path: "{{ entry.src }}"
+  register: src
+
+- name: Only continue if file exists
+  when: src.stat.exists
+  block:
+  - name: Handle file
+    when: not src.stat.isdir
+    set_fact:
+      resources: ["{{ entry }}"]
+
+  - name: Handle directory
+    when: src.stat.isdir
+    set_fact:
+      resources: "{{ [lookup('filetree', entry.src)]
+        | flatten
+        | selectattr('state', '==' , 'file')
+        | map(attribute='src')
+        | sort
+        | add_resource_defaults(entry)
+        | list
+      }}"
+
+- name: (debug) Show processed resource list
+  debug:
+    var: resources
+    verbosity: 2
+
+- name: Append resources to applier_resources
+  set_fact:
+    applier_resources: "{{ applier_resources | union(resources) }}"

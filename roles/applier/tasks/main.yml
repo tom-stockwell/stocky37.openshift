@@ -1,0 +1,25 @@
+---
+- name: (debug) k8s_resources
+  debug:
+    var: k8s_resources
+    verbosity: 1
+
+- name: Process resources
+  include_tasks:
+    file: process-entries.yml
+    apply:
+      tags: "{{ entry.tags | default(omit) }}"
+  loop: "{{ k8s_resources }}"
+  loop_control:
+    loop_var: entry
+
+- name: (debug) Processed resources
+  debug:
+    var: applier_resources
+    verbosity: 1
+
+- name: Apply resources
+  include_tasks: apply-vars.yml
+  loop: "{{ applier_resources }}"
+  loop_control:
+    loop_var: resource
