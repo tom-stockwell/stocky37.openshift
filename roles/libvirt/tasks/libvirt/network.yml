@@ -1,0 +1,25 @@
+---
+# sourced from stackhpc.libvirt-host/tasks/networks.yml
+- debug:
+    var: lookup('template', template)
+    verbosity: 2
+
+- name: Ensure libvirt networks are defined
+  become: yes
+  virt_net:
+    name: "{{ name }}"
+    command: define
+    xml: "{{ lookup('template', template) }}"
+
+- name: Ensure libvirt networks are active
+  become: yes
+  virt_net:
+    name: "{{ name }}"
+    state: active
+
+- name: Ensure libvirt networks are autostarted
+  become: yes
+  virt_net:
+    name: "{{ name }}"
+    autostart: "{{ autostart | default(true) }}"
+    

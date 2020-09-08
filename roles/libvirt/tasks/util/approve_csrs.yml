@@ -1,0 +1,24 @@
+---
+- name: Check CSRs
+  k8s_info:
+    api_version: certificates.k8s.io/v1beta1
+    kind: CertificateSigningRequest
+    namespace: default
+    kubeconfig: "{{ openshift_install_dir }}/auth/kubeconfig"
+  run_once: yes
+  retries: 60
+  delay: 5
+  register: result
+  until:
+    - result.resources is defined
+    - result.resources | selectattr('status', 'eq', {}) | list | length == expected_csr_count
+
+- set_fact:
+    csrs: "{{ result.resources | selectattr('status', 'eq', {}) | map(attribute='metadata.name') | list }}"
+
+# todo: figure out whether or not this is possible through k8s module
+- name: Approve pending CSRs
+  command: "oc adm --kubeconfig '{{ openshift_kubeconfig }}' certificate approve '{{ csr }}'"
+  loop: "{{ csrs }}"
+  loop_control:
+    loop_var: csr

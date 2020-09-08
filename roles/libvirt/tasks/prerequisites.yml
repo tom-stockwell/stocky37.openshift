@@ -1,0 +1,14 @@
+---
+- name: Install prereq packages for installer node
+  become: yes
+  dnf:
+    state: present
+    name: "{{ openshift_packages }}"
+
+- name: Install openshift clients
+  include_role:
+    name: stocky37.openshift.clients
+    allow_duplicates: no
+
+- name: Configure libvirt
+  include_tasks: libvirt/main.yml

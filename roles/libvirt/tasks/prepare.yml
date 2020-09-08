@@ -1,0 +1,49 @@
+---
+- name: Create required directories
+  file:
+    state: directory
+    path: "{{ dir }}"
+  loop:
+    - "{{ openshift_install_dir }}"
+    - "{{ openshift_terraform_dir }}"
+    - "{{ openshift_images_dir }}"
+  loop_control:
+    loop_var: dir
+
+- name: Create install-config.yaml
+  template:
+    src: "{{ openshift_install_config_template }}"
+    dest: "{{ openshift_install_dir }}/install-config.yaml"
+
+- name: Generate manifests
+  command:
+    cmd: openshift-install create manifests --dir="{{ openshift_install_dir }}"
+    creates: "{{ openshift_install_dir }}/manifests"
+
+- name: Configure control plane to be unschedulable
+  replace:
+    path: "{{ openshift_install_dir }}/manifests/cluster-scheduler-02-config.yml"
+    regexp: 'mastersSchedulable: true'
+    replace: 'mastersSchedulable: false'
+  when: openshift_hosts.workers | length > 0
+
+- name: Generate ignition files
+  command:
+    cmd: openshift-install create ignition-configs --dir="{{ openshift_install_dir }}"
+
+- name: Create loadbalancer ignition file
+  template:
+    src: "{{ openshift_loadbalancer_ign_template }}"
+    dest: "{{ openshift_install_dir }}/loadbalancer.ign"
+
+# to do: run this async, make sure completed before running terraform
+- name: Download & extract os images
+  include_tasks: util/download-image.yml
+  loop:
+    - url: "{{ openshift_rhcos_url }}"
+      output: "{{ openshift_rhcos_image }}"
+    - url: "{{ openshift_fcos_url }}"
+      output: "{{ openshift_fcos_image }}"
+  loop_control:
+    loop_var: image
+  when: openshift_download_osimages | bool

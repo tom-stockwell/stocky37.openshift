@@ -1,0 +1,10 @@
+---
+- name: Configure OpenShift libvirt network
+  include_tasks: network.yml
+  vars:
+    name: "{{ openshift_network_name }}"
+    template: "{{ openshift_network_template }}"
+
+# to do:
+# - name: Configure OpenShift libvirt storage
+   

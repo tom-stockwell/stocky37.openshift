@@ -8,6 +8,6 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    path: /tank/openshift/image-registry
-    server: 192.168.0.100
+    path: "{{ openshift_registry_nfs_path }}"
+    server: "{{ openshift_registry_nfs_server }}"
   persistentVolumeReclaimPolicy: Retain

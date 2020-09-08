@@ -1,0 +1,25 @@
+---
+- name: Copy terraform files
+  copy:
+    src: "{{ openshift_terraform_files }}"
+    dest: "{{ openshift_terraform_dir }}"
+
+- name: Provision VMs
+  terraform:
+    project_path: "{{ openshift_terraform_dir }}"
+    state: present
+    force_init: yes
+    variables:
+      fqdn: "{{ openshift_fqdn }}"
+      network_name: "{{ openshift_network_name }}"
+      storage_pool: "{{ openshift_libvirt_storage_pool }}"
+      rhcos_url: "{{ openshift_rhcos_image }}"
+      fcos_url: "{{ openshift_fcos_image }}"
+      master_names: "{{ openshift_hosts.masters | map(attribute='names') | map('first') | list | to_json }}"
+      master_macs: "{{ openshift_hosts.masters | map(attribute='mac') | list | to_json }}"
+      worker_names: "{{ openshift_hosts.workers | map(attribute='names') | map('first') | list | to_json }}"
+      worker_macs: "{{ openshift_hosts.workers | map(attribute='mac') | list | to_json }}"
+      bootstrap_names: "{{ openshift_hosts.bootstraps | map(attribute='names') | map('first') | list | to_json }}"
+      bootstrap_macs: "{{ openshift_hosts.bootstraps | map(attribute='mac') | list | to_json }}"
+      loadbalancer_names: "{{ openshift_hosts.loadbalancers | map(attribute='names') | map('first') | list | to_json }}"
+      loadbalancer_macs: "{{ openshift_hosts.loadbalancers | map(attribute='mac') | list | to_json }}"

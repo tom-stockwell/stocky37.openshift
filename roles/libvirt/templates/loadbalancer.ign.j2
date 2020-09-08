@@ -1,5 +1,5 @@
 {
-	"ignition": { "version": "3.0.0" },
+  "ignition": { "version": "3.0.0" },
   "storage": {
     "files": [{
       "filesystem": "root",
@@ -8,21 +8,21 @@
       "contents": { "source": "data:text/plain;charset=utf-8;base64,{{ lookup('template', openshift_haproxy_template) | b64encode }}" }
     }]
   },
-	"systemd": {
-		"units": [{
+  "systemd": {
+    "units": [{
       "name": "openshift-loadbalancer.service",
       "enabled": true,
       "contents": "{{ lookup('template', openshift_loadbalancer_systemd_template) | regex_replace('\\n', '\\\\n') }}"
     }]
-	},
-	"passwd": {
-		"users": [
-			{
-				"name": "core",
-				"sshAuthorizedKeys": [
-					"{{ openshift_ssh_key }}"
-				]
-			}
-		]
-	}
+  },
+  "passwd": {
+    "users": [
+      {
+        "name": "core",
+        "sshAuthorizedKeys": [
+          "{{ openshift_ssh_key }}"
+        ]
+      }
+    ]
+  }
 }
