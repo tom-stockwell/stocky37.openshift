@@ -1,5 +1,5 @@
 ---
-openshift_clients_version: 4.4
+openshift_clients_version: stable-4.5
 openshift_clients_arch: linux
 openshift_clients_install_dir: /usr/local/bin
 openshift_clients_owner: root
@@ -15,7 +15,7 @@ oc_owner: "{{ openshift_clients_owner }}"
 oc_group: "{{ openshift_clients_group }}"
 oc_mode: "{{ openshift_clients_mode }}"
 oc_become:  "{{ openshift_clients_become }}"
-oc_download_url: "{{ openshift_clients_download_root }}/oc/{{ oc_version }}/{{ oc_arch }}/oc.tar.gz"
+oc_download_url: "{{ openshift_clients_download_root }}/ocp/{{ oc_version }}/openshift-client-{{ oc_arch }}.tar.gz"
 
 odo_version: latest
 odo_arch: linux-amd64
@@ -26,7 +26,7 @@ odo_mode: "{{ openshift_clients_mode }}"
 odo_become:  "{{ openshift_clients_become }}"
 odo_download_url: "{{ openshift_clients_download_root }}/odo/{{ odo_version }}/odo-{{ odo_arch }}.tar.gz"
 
-openshift_install_version: "stable-{{ openshift_clients_version }}"
+openshift_install_version: "{{ openshift_clients_version }}"
 openshift_install_arch: "{{ openshift_clients_arch }}"
 openshift_install_install_dir: "{{ openshift_clients_install_dir }}"
 openshift_install_owner: "{{ openshift_clients_owner }}"
