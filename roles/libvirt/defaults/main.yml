@@ -9,7 +9,6 @@ openshift_terraform_files: terraform/
 openshift_packages:
   - python3-openshift
 
-
 openshift_download_osimages: true
 openshift_url_filename_regex: '(.*\.qcow2)(?:\.\w+)?$'
 openshift_rhcos_url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.4/latest/rhcos-qemu.x86_64.qcow2.gz
