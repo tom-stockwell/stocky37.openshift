@@ -1,1 +1,16 @@
 _extends: .github
+
+labels:
+  # default GitHub labels to keep
+  - name: 'role: libvirt'
+    description: Related to the libvirt role
+    color: '006b75'
+
+  - name: 'role: clients'
+    description: Related to the clients role
+    color: '006b75'
+
+  - name: 'role: applier'
+    description: Related to the applier role
+    color: '006b75'
+
