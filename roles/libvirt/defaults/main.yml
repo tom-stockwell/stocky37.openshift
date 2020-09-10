@@ -11,7 +11,7 @@ openshift_packages:
 
 openshift_download_osimages: true
 openshift_url_filename_regex: '(.*\.qcow2)(?:\.\w+)?$'
-openshift_rhcos_url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.4/latest/rhcos-qemu.x86_64.qcow2.gz
+openshift_rhcos_url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.5/latest/rhcos-qemu.x86_64.qcow2.gz
 openshift_fcos_url: https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/32.20200824.3.0/x86_64/fedora-coreos-32.20200824.3.0-qemu.x86_64.qcow2.xz
 openshift_rhcos_image: "{{ openshift_images_dir }}/{{ openshift_rhcos_url | basename | regex_replace(openshift_url_filename_regex, '\\1') }}"
 openshift_fcos_image: "{{ openshift_images_dir }}/{{ openshift_fcos_url | basename | regex_replace(openshift_url_filename_regex, '\\1') }}"
