@@ -8,15 +8,11 @@ variable "storage_pool" {
   default = "default"
 }
 
-variable "rhcos_url" {
-  type    = string
-}
-
-variable "fcos_url" {
-  type    = string
-}
-
 variable "fqdn" {
+  type    = string
+}
+
+variable "master_image" {
   type    = string
 }
 
@@ -40,9 +36,8 @@ variable "master_vcpu" {
   default = 4
 }
 
-variable "master_storage" {
-  type    = number
-  default = 128849018880
+variable "worker_image" {
+  type    = string
 }
 
 variable "worker_names" {
@@ -65,9 +60,8 @@ variable "worker_vcpu" {
   default = 2
 }
 
-variable "worker_storage" {
-  type    = number
-  default = 128849018880
+variable "bootstrap_image" {
+  type    = string
 }
 
 variable "bootstrap_names" {
@@ -90,9 +84,8 @@ variable "bootstrap_vcpu" {
   default = 4
 }
 
-variable "bootstrap_storage" {
-  type    = number
-  default = 128849018880
+variable "loadbalancer_image" {
+  type    = string
 }
 
 variable "loadbalancer_names" {
@@ -113,9 +106,4 @@ variable "loadbalancer_memory" {
 variable "loadbalancer_vcpu" {
   type    = number
   default = 2
-}
-
-variable "loadbalancer_storage" {
-  type    = number
-  default = 41943040
 }

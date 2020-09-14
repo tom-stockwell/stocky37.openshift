@@ -47,3 +47,30 @@
   loop_control:
     loop_var: image
   when: openshift_download_osimages | bool
+
+- name: Copy to separate template images
+  copy:
+    remote_src: yes
+    src: "{{ image.src }}"
+    dest: "{{ image.dest }}"
+  loop:
+    - src: "{{ openshift_rhcos_image }}"
+      dest: "{{ openshift_master_osimage }}"
+    - src: "{{ openshift_rhcos_image }}"
+      dest: "{{ openshift_worker_osimage }}"
+    - src: "{{ openshift_fcos_image }}"
+      dest: "{{ openshift_loadbalancer_osimage }}"
+  loop_control:
+    loop_var: image
+
+- name: Resize source images
+  command: "qemu-img resize '{{ image.path }}' '{{ image.size }}'"
+  loop:
+    - path: "{{ openshift_master_osimage }}"
+      size: "{{ openshift_master_storage_size }}"
+    - path: "{{ openshift_worker_osimage }}"
+      size: "{{ openshift_worker_storage_size }}"
+    - path: "{{ openshift_fcos_image }}"
+      size: "{{ openshift_loadbalancer_storage_size }}"
+  loop_control:
+    loop_var: image

@@ -11,8 +11,11 @@
     targets: ['module.bootstraps']
     variables:
       fqdn: "{{ openshift_fqdn }}"
-      rhcos_url: "{{ openshift_rhcos_image }}"
-      fcos_url: "{{ openshift_fcos_image }}"
+      master_image: "{{ openshift_master_osimage }}"
+      worker_image: "{{ openshift_worker_osimage }}"
+      bootstrap_image: "{{ openshift_bootstrap_osimage }}"
+      loadbalancer_image: "{{ openshift_loadbalancer_osimage }}"
+
 
 # todo: only check these if worker nodes don't have CSRs?
 # todo: this is flaky - make it better

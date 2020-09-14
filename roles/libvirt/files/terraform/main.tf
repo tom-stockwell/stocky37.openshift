@@ -7,10 +7,9 @@ module "masters" {
   macs         = var.master_macs
   network_name = var.network_name
   storage_pool = var.storage_pool
-  image_source = var.rhcos_url
+  image_source = var.master_image
   memory       = var.master_memory
   vcpu         = var.master_vcpu
-  storage      = var.master_storage
 }
 
 module "workers" {
@@ -22,10 +21,9 @@ module "workers" {
   macs         = var.worker_macs
   network_name = var.network_name
   storage_pool = var.storage_pool
-  image_source = var.rhcos_url
+  image_source = var.worker_image
   memory       = var.worker_memory
   vcpu         = var.worker_vcpu
-  storage      = var.worker_storage
 }
 
 module "bootstraps" {
@@ -37,10 +35,9 @@ module "bootstraps" {
   macs         = var.bootstrap_macs
   network_name = var.network_name
   storage_pool = var.storage_pool
-  image_source = var.rhcos_url
+  image_source = var.bootstrap_image
   memory       = var.bootstrap_memory
   vcpu         = var.bootstrap_vcpu
-  storage      = var.bootstrap_storage
 }
 
 module "loadbalancers" {
@@ -52,8 +49,7 @@ module "loadbalancers" {
   macs         = var.loadbalancer_macs
   network_name = var.network_name
   storage_pool = var.storage_pool
-  image_source = var.fcos_url
+  image_source = var.loadbalancer_image
   memory       = var.loadbalancer_memory
   vcpu         = var.loadbalancer_vcpu
-  storage      = var.loadbalancer_storage
 }

@@ -13,8 +13,20 @@ openshift_download_osimages: true
 openshift_url_filename_regex: '(.*\.qcow2)(?:\.\w+)?$'
 openshift_rhcos_url: https://mirror.openshift.com/pub/openshift-v4/dependencies/rhcos/4.5/latest/rhcos-qemu.x86_64.qcow2.gz
 openshift_fcos_url: https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/32.20200824.3.0/x86_64/fedora-coreos-32.20200824.3.0-qemu.x86_64.qcow2.xz
-openshift_rhcos_image: "{{ openshift_images_dir }}/{{ openshift_rhcos_url | basename | regex_replace(openshift_url_filename_regex, '\\1') }}"
-openshift_fcos_image: "{{ openshift_images_dir }}/{{ openshift_fcos_url | basename | regex_replace(openshift_url_filename_regex, '\\1') }}"
+openshift_rhcos_image_filename: "{{ openshift_rhcos_url | basename | regex_replace(openshift_url_filename_regex, '\\1') }}"
+openshift_rhcos_image: "{{ openshift_images_dir }}/{{ openshift_rhcos_image_filename }}"
+openshift_fcos_image_filename: "{{ openshift_fcos_url | basename | regex_replace(openshift_url_filename_regex, '\\1') }}"
+openshift_fcos_image: "{{ openshift_images_dir }}/{{ openshift_fcos_image_filename }}"
+
+openshift_master_osimage: "{{ openshift_images_dir }}/master.{{ openshift_rhcos_image_filename }}"
+openshift_worker_osimage: "{{ openshift_images_dir }}/worker.{{ openshift_rhcos_image_filename }}"
+openshift_bootstrap_osimage: "{{ openshift_master_osimage }}"
+openshift_loadbalancer_osimage: "{{ openshift_images_dir }}/loadbalancer.{{ openshift_fcos_image_filename }}"
+
+openshift_master_storage_size: 120G
+openshift_worker_storage_size: 120G
+openshift_bootstrap_storage_size: 120G
+openshift_loadbalancer_storage_size: 40G
 
 openshift_api_cname: "{{ openshift_hosts.loadbalancers[0].names | first }}.{{ openshift_fqdn }}"
 openshift_api_internal_cname: "{{ openshift_api_cname }}"
@@ -39,6 +51,8 @@ openshift_loadbalancer_volume: "{{ openshift_haproxy_config_path | dirname }}:/u
 openshift_haproxy_template: haproxy.cfg.j2
 openshift_haproxy_balance_mode: source
 openshift_haproxy_config_path: /etc/haproxy/haproxy.cfg
+
+
 
 # to do: make names defined by default
 openshift_hosts:

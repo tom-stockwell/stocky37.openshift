@@ -38,8 +38,3 @@ variable "vcpu" {
   type    = number
   default = 4
 }
-
-variable "storage" {
-  type    = number
-  default = 128849018880
-}
