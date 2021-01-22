@@ -11,7 +11,7 @@
   register: result
   until:
     - result.resources is defined
-    - result.resources | selectattr('status', 'eq', {}) | list | length == expected_csr_count
+    - (result.resources | selectattr('status', 'eq', {}) | list | length) >= expected_csr_count | int
 
 - set_fact:
     csrs: "{{ result.resources | selectattr('status', 'eq', {}) | map(attribute='metadata.name') | list }}"

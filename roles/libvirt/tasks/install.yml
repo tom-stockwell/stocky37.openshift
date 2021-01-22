@@ -19,6 +19,7 @@
 
 # todo: only check these if worker nodes don't have CSRs?
 # todo: this is flaky - make it better
+# if i keep the bootstrap for now, will it auto approve CSRs?
 - name: Approve worker node bootstrapper CSRs
   include_tasks: util/approve_csrs.yml
   vars:
