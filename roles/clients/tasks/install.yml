@@ -1,15 +1,22 @@
 ---
-- name: download & install openshift clients
+- name: Create installation directory
+  file:
+    path: "{{ oc_install_dir }}"
+    state: directory
+    owner: "{{ oc_owner }}"
+    group: "{{ oc_group }}"
+  become: "{{ oc_become }}"
+
+- name: Download & install openshift clients
   unarchive:
     remote_src: yes
-    src: "{{ client.download_url }}"
-    dest: "{{ client.install_dir }}"
-    owner: "{{ client.owner }}"
-    group: "{{ client.group }}"
-    mode: "{{ client.mode }}"
-    creates: "{{ client.install_dir }}/{{ client.name }}"
-  become: "{{ client.become }}"
+    src: "{{ openshift_client_urls[client] }}"
+    dest: "{{ oc_install_dir }}"
+    owner: "{{ oc_owner }}"
+    group: "{{ oc_group }}"
+    mode: "{{ oc_mode }}"
+    creates: "{{ oc_force_install | ternary(oc_creates_force, (oc_install_dir, openshift_client_binaries[client]) | path_join) }}"
+  become: "{{ oc_become }}"
   loop: "{{ openshift_clients }}"
   loop_control:
     loop_var: client
-    label: "{{ client.name }}"
