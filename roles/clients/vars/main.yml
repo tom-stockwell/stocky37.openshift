@@ -5,6 +5,7 @@ openshift_client_binaries:
   installer: openshift-install
   odo: odo
   tkn: tkn
+  kam: kam
 
 openshift_client_urls:
   oc: "{{ oc_clients_url }}/ocp/{{ oc_version }}/openshift-client-linux.tar.gz"
@@ -12,5 +13,6 @@ openshift_client_urls:
   installer: "{{ oc_clients_url }}/ocp/{{ oc_version }}/openshift-install-linux.tar.gz"
   odo: "{{ oc_clients_url }}/odo/{{ odo_version }}/odo-linux-amd64.tar.gz"
   tkn: "{{ oc_clients_url }}/pipeline/{{ tkn_version }}/tkn-linux-amd64-{{ tkn_version }}.tar.gz"
+  kam: "{{ oc_clients_url }}/kam/{{ kam_version }}/kam-linux-amd64.tar.gz"
 
 oc_creates_force: "/tmp/{{ lookup('community.general.random_string', special=false) }}"
