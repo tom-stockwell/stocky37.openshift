@@ -6,7 +6,7 @@ openshift_clients:
 - odo
 - tkn
 - kam
-
+- kustomize
 
 oc_force_install: no
 oc_install_dir: /usr/local/bin
@@ -16,6 +16,7 @@ oc_version: stable-4.8
 odo_version: latest
 tkn_version: 0.19.1
 kam_version: latest
+kustomize_version: 4.3.0
 
 oc_become: yes
 oc_owner: root
