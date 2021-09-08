@@ -19,6 +19,7 @@
       worker_image: "{{ openshift_worker_osimage }}"
       worker_names: "{{ openshift_hosts.workers | map(attribute='names') | map('first') | list | to_json }}"
       worker_macs: "{{ openshift_hosts.workers | map(attribute='mac') | list | to_json }}"
+      worker_vcpu: "{{ openshift_worker_vcpus }}"
       bootstrap_image: "{{ openshift_bootstrap_osimage }}"
       bootstrap_names: "{{ openshift_hosts.bootstraps | map(attribute='names') | map('first') | list | to_json }}"
       bootstrap_macs: "{{ openshift_hosts.bootstraps | map(attribute='mac') | list | to_json }}"

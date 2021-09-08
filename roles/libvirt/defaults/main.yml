@@ -28,6 +28,8 @@ openshift_worker_storage_size: 120G
 openshift_bootstrap_storage_size: 120G
 openshift_loadbalancer_storage_size: 40G
 
+openshift_worker_vcpus: 2
+
 openshift_api_cname: "{{ openshift_hosts.loadbalancers[0].names | first }}.{{ openshift_fqdn }}"
 openshift_api_internal_cname: "{{ openshift_api_cname }}"
 openshift_apps_cname: "{{ openshift_api_cname }}"
