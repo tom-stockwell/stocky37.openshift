@@ -100,7 +100,7 @@ variable "loadbalancer_macs" {
 
 variable "loadbalancer_memory" {
   type    = number
-  default = 16384
+  default = 2048
 }
 
 variable "loadbalancer_vcpu" {

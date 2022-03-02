@@ -20,9 +20,12 @@
       worker_names: "{{ openshift_hosts.workers | map(attribute='names') | map('first') | list | to_json }}"
       worker_macs: "{{ openshift_hosts.workers | map(attribute='mac') | list | to_json }}"
       worker_vcpu: "{{ openshift_worker_vcpus }}"
+      worker_memory: "{{ openshift_worker_memory }}"
       bootstrap_image: "{{ openshift_bootstrap_osimage }}"
       bootstrap_names: "{{ openshift_hosts.bootstraps | map(attribute='names') | map('first') | list | to_json }}"
       bootstrap_macs: "{{ openshift_hosts.bootstraps | map(attribute='mac') | list | to_json }}"
       loadbalancer_image: "{{ openshift_loadbalancer_osimage }}"
       loadbalancer_names: "{{ openshift_hosts.loadbalancers | map(attribute='names') | map('first') | list | to_json }}"
       loadbalancer_macs: "{{ openshift_hosts.loadbalancers | map(attribute='mac') | list | to_json }}"
+
+# todo: make a variables file instead of passing them all in above
