@@ -37,4 +37,9 @@ variable "memory" {
 variable "vcpu" {
   type    = number
   default = 4
+} 
+
+variable "autostart" {
+  type = boolean
+  default = true
 }

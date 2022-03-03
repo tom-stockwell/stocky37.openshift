@@ -30,6 +30,7 @@ resource "libvirt_domain" "node" {
   name   = "${var.names[count.index]}.${var.fqdn}"
   memory = var.memory
   vcpu   = var.vcpu
+  autostart = var.autostart
 
   network_interface {
     network_name = var.network_name
