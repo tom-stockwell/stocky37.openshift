@@ -15,6 +15,6 @@ openshift_client_urls:
   odo: "{{ oc_clients_url }}/odo/{{ odo_version }}/odo-linux-amd64.tar.gz"
   tkn: "{{ oc_clients_url }}/pipeline/{{ tkn_version }}/tkn-linux-amd64-{{ tkn_version }}.tar.gz"
   kam: "{{ oc_clients_url }}/kam/{{ kam_version }}/kam-linux-amd64.tar.gz"
-  kustomize: "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv4.3.0/kustomize_v{{ kustomize_version }}_linux_amd64.tar.gz"
+  kustomize: "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv{{ kustomize_version }}/kustomize_v{{ kustomize_version }}_linux_amd64.tar.gz"
 
 oc_creates_force: "/tmp/{{ lookup('community.general.random_string', special=false) }}"

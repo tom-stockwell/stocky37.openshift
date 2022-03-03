@@ -12,7 +12,7 @@ oc_force_install: no
 oc_install_dir: /usr/local/bin
 oc_clients_url: https://mirror.openshift.com/pub/openshift-v4/clients
 
-oc_version: stable-4.8
+oc_version: stable
 odo_version: latest
 tkn_version: 0.19.1
 kam_version: latest
