@@ -2,12 +2,13 @@
 openshift_clients:
 - oc
 - opm
-- installer
+- openshift-install
 - odo
 - tkn
 - kam
 - kustomize
 - kubeseal
+- argocd
 
 oc_force_install: no
 oc_install_dir: /usr/local/bin
@@ -18,7 +19,8 @@ odo_version: latest
 tkn_version: 0.19.1
 kam_version: latest
 kustomize_version: 4.3.0
-sealed_secrets_version: 0.17.3
+kubeseal_version: 0.17.3
+argocd_version: 2.2.5
 
 oc_become: yes
 oc_owner: root

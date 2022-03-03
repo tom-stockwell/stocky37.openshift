@@ -8,15 +8,10 @@
   become: "{{ oc_become }}"
 
 - name: Download & install openshift clients
-  unarchive:
-    remote_src: yes
+  include_tasks: install-client.yml
+  vars:
     src: "{{ openshift_client_urls[client] }}"
-    dest: "{{ oc_install_dir }}"
-    owner: "{{ oc_owner }}"
-    group: "{{ oc_group }}"
-    mode: "{{ oc_mode }}"
-    creates: "{{ oc_force_install | ternary(oc_creates_force, (oc_install_dir, openshift_client_binaries[client]) | path_join) }}"
-  become: "{{ oc_become }}"
+    dest: "{{ oc_install_dir }}/{{ client }}"
   loop: "{{ openshift_clients }}"
   loop_control:
     loop_var: client

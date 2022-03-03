@@ -1,14 +1,4 @@
 ---
-openshift_client_binaries:
-  oc: oc
-  opm: opm
-  installer: openshift-install
-  odo: odo
-  tkn: tkn
-  kam: kam
-  kustomize: kustomize
-  kubeseal: kubeseal
-
 oc_system: "{{ ansible_system | lower }}"
 oc_arch: "{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architecture }}"
 
@@ -16,11 +6,12 @@ oc_arch: "{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architectu
 openshift_client_urls:
   oc: "{{ oc_clients_url }}/ocp/{{ oc_version }}/openshift-client-{{ oc_system }}.tar.gz"
   opm: "{{ oc_clients_url }}/ocp/{{ oc_version }}/opm-{{ oc_system }}.tar.gz"
-  installer: "{{ oc_clients_url }}/ocp/{{ oc_version }}/openshift-install-{{ oc_system }}.tar.gz"
+  openshift-install: "{{ oc_clients_url }}/ocp/{{ oc_version }}/openshift-install-{{ oc_system }}.tar.gz"
   odo: "{{ oc_clients_url }}/odo/{{ odo_version }}/odo-{{ oc_system }}-{{oc_arch }}.tar.gz"
   tkn: "{{ oc_clients_url }}/pipeline/{{ tkn_version }}/tkn-{{ oc_system }}-{{ oc_arch}}-{{ tkn_version }}.tar.gz"
   kam: "{{ oc_clients_url }}/kam/{{ kam_version }}/kam-{{ oc_system }}-{{ oc_arch }}.tar.gz"
   kustomize: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv{{ kustomize_version }}/kustomize_v{{ kustomize_version }}_{{ oc_system }}_{{ oc_arch }}.tar.gz
   kubeseal: https://github.com/bitnami-labs/sealed-secrets/releases/download/v{{ sealed_secrets_version }}/kubeseal-{{ sealed_secrets_version }}-{{ oc_system }}-{{ oc_arch }}.tar.gz
+  argocd: "https://github.com/argoproj/argo-cd/releases/download/v{{ argocd_version }}/argocd-{{ oc_system }}-{{ oc_arch }}"
 
-oc_creates_force: "/tmp/{{ lookup('community.general.random_string', special=false) }}"
+oc_archive_regex: '.*\.tar\.gz'
