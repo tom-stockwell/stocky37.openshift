@@ -4,7 +4,7 @@
     var: lookup('template', template)
     verbosity: 2
 
-- name: Ensure libvirt networks are defined
+- name: Ensure libvirt network is defined
   become: yes
   virt_net:
     name: "{{ name }}"

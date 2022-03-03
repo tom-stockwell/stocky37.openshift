@@ -1,7 +1,7 @@
 ---
 - name: Copy terraform files
   copy:
-    src: "{{ openshift_terraform_files }}"
+    src: "{{ openshift_terraform_files }}/"
     dest: "{{ openshift_terraform_dir }}"
 
 - name: Provision VMs
