@@ -7,10 +7,12 @@ openshift_client_binaries:
   tkn: tkn
   kam: kam
   kustomize: kustomize
+  kubeseal: kubeseal
 
 oc_system: "{{ ansible_system | lower }}"
 oc_arch: "{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architecture }}"
 
+# keys here should correspond to the values in openshift_client_binaries
 openshift_client_urls:
   oc: "{{ oc_clients_url }}/ocp/{{ oc_version }}/openshift-client-{{ oc_system }}.tar.gz"
   opm: "{{ oc_clients_url }}/ocp/{{ oc_version }}/opm-{{ oc_system }}.tar.gz"
@@ -18,6 +20,7 @@ openshift_client_urls:
   odo: "{{ oc_clients_url }}/odo/{{ odo_version }}/odo-{{ oc_system }}-{{oc_arch }}.tar.gz"
   tkn: "{{ oc_clients_url }}/pipeline/{{ tkn_version }}/tkn-{{ oc_system }}-{{ oc_arch}}-{{ tkn_version }}.tar.gz"
   kam: "{{ oc_clients_url }}/kam/{{ kam_version }}/kam-{{ oc_system }}-{{ oc_arch }}.tar.gz"
-  kustomize: "https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv{{ kustomize_version }}/kustomize_v{{ kustomize_version }}_{{ oc_system }}_{{ oc_arch }}.tar.gz"
+  kustomize: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv{{ kustomize_version }}/kustomize_v{{ kustomize_version }}_{{ oc_system }}_{{ oc_arch }}.tar.gz
+  kubeseal: https://github.com/bitnami-labs/sealed-secrets/releases/download/v{{ sealed_secrets_version }}/kubeseal-{{ sealed_secrets_version }}-{{ oc_system }}-{{ oc_arch }}.tar.gz
 
 oc_creates_force: "/tmp/{{ lookup('community.general.random_string', special=false) }}"
