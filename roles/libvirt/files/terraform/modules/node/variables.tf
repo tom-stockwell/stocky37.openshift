@@ -40,6 +40,6 @@ variable "vcpu" {
 } 
 
 variable "autostart" {
-  type = boolean
+  type    = bool
   default = true
 }
