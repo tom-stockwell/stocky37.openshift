@@ -8,7 +8,7 @@ openshift_client_urls:
   opm: "{{ oc_clients_url }}/ocp/{{ oc_version }}/opm-{{ oc_system }}.tar.gz"
   openshift-install: "{{ oc_clients_url }}/ocp/{{ oc_version }}/openshift-install-{{ oc_system }}.tar.gz"
   odo: "{{ oc_clients_url }}/odo/{{ odo_version }}/odo-{{ oc_system }}-{{oc_arch }}.tar.gz"
-  tkn: "{{ oc_clients_url }}/pipeline/{{ tkn_version }}/tkn-{{ oc_system }}-{{ oc_arch}}-{{ tkn_version }}.tar.gz"
+  tkn: "{{ oc_clients_url }}/pipeline/{{ tkn_version }}/tkn-{{ oc_system }}-{{ oc_arch}}.tar.gz"
   kam: "{{ oc_clients_url }}/kam/{{ kam_version }}/kam-{{ oc_system }}-{{ oc_arch }}.tar.gz"
   kustomize: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv{{ kustomize_version }}/kustomize_v{{ kustomize_version }}_{{ oc_system }}_{{ oc_arch }}.tar.gz
   kubeseal: https://github.com/bitnami-labs/sealed-secrets/releases/download/v{{ sealed_secrets_version }}/kubeseal-{{ sealed_secrets_version }}-{{ oc_system }}-{{ oc_arch }}.tar.gz
