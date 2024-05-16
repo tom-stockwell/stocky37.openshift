@@ -1,0 +1,8 @@
+- name: Download & install client binary
+  ansible.builtin.get_url:
+    url: "{{ url }}"
+    dest: "{{ (openshift_clients_install_dir, filename) | path_join }}"
+    owner: "{{ openshift_clients_owner }}"
+    group: "{{ openshift_clients_group }}"
+    mode: "{{ openshift_clients_mode }}"
+    force: "{{ openshift_clients_force_reinstall }}"

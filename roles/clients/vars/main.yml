@@ -1,17 +1,54 @@
----
-oc_system: "{{ ansible_system | lower }}"
-oc_arch: "{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architecture }}"
+_system: "{{ ansible_system | lower }}"
+_arch: "{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architecture }}"
+_sysarch: "{{ _system }}-{{ _arch }}"
 
-# keys here should correspond to the values in openshift_client_binaries
-openshift_client_urls:
-  oc: "{{ oc_clients_url }}/ocp/{{ oc_version }}/openshift-client-{{ oc_system }}.tar.gz"
-  opm: "{{ oc_clients_url }}/ocp/{{ oc_version }}/opm-{{ oc_system }}.tar.gz"
-  openshift-install: "{{ oc_clients_url }}/ocp/{{ oc_version }}/openshift-install-{{ oc_system }}.tar.gz"
-  odo: "{{ oc_clients_url }}/odo/{{ odo_version }}/odo-{{ oc_system }}-{{oc_arch }}.tar.gz"
-  tkn: "{{ oc_clients_url }}/pipeline/{{ tkn_version }}/tkn-{{ oc_system }}-{{ oc_arch}}.tar.gz"
-  kam: "{{ oc_clients_url }}/kam/{{ kam_version }}/kam-{{ oc_system }}-{{ oc_arch }}.tar.gz"
-  kustomize: https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv{{ kustomize_version }}/kustomize_v{{ kustomize_version }}_{{ oc_system }}_{{ oc_arch }}.tar.gz
-  kubeseal: https://github.com/bitnami-labs/sealed-secrets/releases/download/v{{ sealed_secrets_version }}/kubeseal-{{ sealed_secrets_version }}-{{ oc_system }}-{{ oc_arch }}.tar.gz
-  argocd: "https://github.com/argoproj/argo-cd/releases/download/v{{ argocd_version }}/argocd-{{ oc_system }}-{{ oc_arch }}"
+_archive_regex: '.*\.tar\.gz$'
+_extra_opts_remove_sysarch:
+  - --transform
+  - s/-{{ _sysarch }}//
 
-oc_archive_regex: '.*\.tar\.gz'
+_openshift_client_defaults:
+  oc:
+    url: "{{ openshift_clients_mirror_url }}/ocp/{{ openshift_clients_ocp_version }}/openshift-client-{{ _system }}.tar.gz"
+    include:
+      - oc
+      - kubectl
+  oc-mirror:
+    url: "{{ openshift_clients_mirror_url }}/ocp/{{ openshift_clients_ocp_version }}/oc-mirror.tar.gz"
+    include:
+      - oc-mirror
+  openshift-install:
+    url: "{{ openshift_clients_mirror_url }}/ocp/{{ openshift_clients_ocp_version }}/openshift-install-{{ _system }}.tar.gz"
+    include:
+      - openshift-install
+  opm:
+    url:  "{{ openshift_clients_mirror_url }}/ocp/{{ openshift_clients_ocp_version }}/opm-{{ _system }}.tar.gz"
+    include:
+      - opm
+  butane:
+    url: "{{ openshift_clients_mirror_url }}/butane/{{ openshift_clients_butane_version }}/butane-{{ _arch }}"
+    filename: butane
+  helm:
+    url: "{{ openshift_clients_mirror_url }}/helm/{{ openshift_clients_helm_version }}/helm-{{ _sysarch }}.tar.gz"
+    include:
+      - helm-{{ _sysarch }}
+    extra_opts: "{{ _extra_opts_remove_sysarch }}"
+  kam:
+    url: "{{ openshift_clients_mirror_url }}/kam/{{ openshift_clients_kam_version }}/kam-{{ _sysarch }}.tar.gz"
+    include:
+      - kam
+  odo:
+    url: "{{ openshift_clients_mirror_url }}/odo/{{ openshift_clients_odo_version }}/odo-{{ _sysarch }}.tar.gz"
+    include:
+      - odo
+  tkn:
+    url: "{{ openshift_clients_mirror_url }}/pipelines/{{ openshift_clients_tkn_version }}/tkn-{{ _sysarch }}.tar.gz"
+    include:
+      - tkn
+      - tkn-pac
+      - opc
+  kn:
+    url: "{{ openshift_clients_mirror_url }}/serverless/{{ openshift_clients_kn_version }}/kn-{{ _sysarch }}.tar.gz"
+    include:
+      - kn-{{ _sysarch }}
+    extra_opts: "{{ _extra_opts_remove_sysarch }}"

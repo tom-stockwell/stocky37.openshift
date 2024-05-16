@@ -1,0 +1,9 @@
+- name: Download & install clients
+  ansible.builtin.include_tasks: steps/install-client.yml
+  vars:
+    url: "{{ client.url }}"
+    include: "{{ client.include | default(omit) }}"
+    filename: "{{ client.filename | default(omit) }}"
+  loop: "{{ openshift_clients_extras }}"
+  loop_control:
+    loop_var: client

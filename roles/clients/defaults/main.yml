@@ -1,28 +1,29 @@
----
 openshift_clients:
-- oc
-- opm
-- openshift-install
-- odo
-- tkn
-- kam
-- kustomize
-- kubeseal
-- argocd
+  - oc
+  - oc-mirror
+  - openshift-install
+  - opm
+  - butane
+  - helm
+  - kam
+  - odo
+  - tkn
+  - kn
 
-oc_force_install: no
-oc_install_dir: /usr/local/bin
-oc_clients_url: https://mirror.openshift.com/pub/openshift-v4/clients
+openshift_clients_extras: []
 
-oc_version: stable
-odo_version: latest
-tkn_version: 0.19.1
-kam_version: latest
-kustomize_version: 4.3.0
-kubeseal_version: 0.17.3
-argocd_version: 2.2.5
+openshift_clients_mirror_url: https://mirror.openshift.com/pub/openshift-v4/clients
+openshift_clients_force_reinstall: false
 
-oc_become: yes
-oc_owner: root
-oc_group: root
-oc_mode: '0755'
+openshift_clients_install_dir: /usr/local/bin
+openshift_clients_owner: root
+openshift_clients_group: root
+openshift_clients_mode: '0755'
+
+openshift_clients_ocp_version: fast
+openshift_clients_butane_version: latest
+openshift_clients_helm_version: latest
+openshift_clients_kam_version: latest
+openshift_clients_odo_version: latest
+openshift_clients_tkn_version: latest
+openshift_clients_kn_version: latest

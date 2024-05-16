@@ -1,3 +1,4 @@
----
-- name: install openshift clients
-  include_tasks: install.yml
+- name: Install OpenShift clients
+  include_tasks: install-openshift-clients.yml
+- name: Install extra clients
+  include_tasks: install-extra-clients.yml

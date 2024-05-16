@@ -1,0 +1,11 @@
+- name: Download & extract client from archive
+  ansible.builtin.unarchive:
+    remote_src: true
+    src: "{{ url }}"
+    dest: "{{ openshift_clients_install_dir }}"
+    include: "{{ include }}"
+    creates: "{{ openshift_clients_force_reinstall | ternary(omit, (openshift_clients_install_dir, include.0) | path_join) }}"
+    owner: "{{ openshift_clients_owner }}"
+    group: "{{ openshift_clients_group }}"
+    mode: "{{ openshift_clients_mode }}"
+    extra_opts: "{{ extra_opts | default(omit) }}"

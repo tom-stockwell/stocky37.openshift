@@ -1,0 +1,7 @@
+- name: Download & extract archive
+  when: url is search(_archive_regex)
+  ansible.builtin.include_tasks: install-from-archive.yml
+
+- name: Download binary
+  when: not(url is search(_archive_regex))
+  ansible.builtin.include_tasks: install-from-binary.yml
